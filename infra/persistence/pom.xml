@@ -10,20 +10,6 @@
   <artifactId>persistence</artifactId>
   <name>persistence</name>
   <url>http://maven.apache.org</url>
-  <build>
-    <resources>
-      <resource>
-        <filtering>false</filtering>
-        <directory>${basedir}/src/main/resources</directory>
-        <includes>
-          <include>hibernate.cfg.xml</include>
-          <include>Person.hbm.xml</include>
-          <include>Role.hbm.xml</include>
-          <include>ContactInformation.hbm.xml</include>
-        </includes>
-      </resource>
-    </resources>
-  </build>
   <dependencies>
     <dependency>
       <groupId>org.postgresql</groupId>
@@ -34,6 +20,16 @@
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-core</artifactId>
       <version>5.2.15.Final</version>
+    </dependency>
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-annotations</artifactId>
+      <version>3.5.6-Final</version>
+    </dependency>
+    <dependency>
+      <groupId>com.exist</groupId>
+      <artifactId>model</artifactId>
+      <version>${project.version}</version>
     </dependency>
   </dependencies>
  </project>

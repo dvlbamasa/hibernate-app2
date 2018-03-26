@@ -1,8 +1,12 @@
+import javax.persistence.*;
+
+@Embeddable
 public class Name {
 
 	private int id;
 	private String firstName;
 	private String middleName;
+	
 	private String lastName;
 
 	public Name() {}
@@ -25,6 +29,7 @@ public class Name {
 		this.firstName = firstName;
 	}
 
+	@Column(name = "first_name")
 	public String getFirstName() {
 		return firstName;
 	}
@@ -33,6 +38,7 @@ public class Name {
 		this.middleName = middleName;
 	}
 
+	@Column(name = "middle_name")
 	public String getMiddleName() {
 		return middleName;
 	}
@@ -41,6 +47,7 @@ public class Name {
 		this.lastName = lastName;
 	}
 
+	@Column(name = "last_name")
 	public String getLastName() {
 		return lastName;
 	}

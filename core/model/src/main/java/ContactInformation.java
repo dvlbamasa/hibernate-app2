@@ -1,3 +1,9 @@
+import javax.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+
+@Entity
+@Table(name = "contact_information")
 public class ContactInformation {
 	
 	private int id;
@@ -18,6 +24,11 @@ public class ContactInformation {
 		this.id = id;
 	}
 
+	@GenericGenerator(name = "generator", strategy = "foreign", 
+	parameters = @Parameter(name = "property", value = "person"))
+	@Id
+	@GeneratedValue(generator = "generator")
+	@Column(name = "id", unique = true, nullable = false)
 	public int getId() {
 		return id;
 	}
@@ -26,6 +37,7 @@ public class ContactInformation {
 		this.landline = landline;
 	}
 
+	@Column(name = "landline")
 	public String getLandline() {
 		return landline;
 	}
@@ -34,6 +46,7 @@ public class ContactInformation {
 		this.mobileNumber = mobileNumber;
 	}
 
+	@Column(name = "mobile_number")
 	public String getMobileNumber() {
 		return mobileNumber;
 	}
@@ -42,6 +55,7 @@ public class ContactInformation {
 		this.email = email;
 	}
 
+	@Column(name = "email")
 	public String getEmail() {
 		return email;
 	}
@@ -50,6 +64,8 @@ public class ContactInformation {
 		this.person = person;
 	}
 
+	@OneToOne(fetch = FetchType.EAGER)
+	@PrimaryKeyJoinColumn
 	public Person getPerson() {
 		return person;
 	}

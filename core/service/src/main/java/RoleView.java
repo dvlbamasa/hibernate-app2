@@ -32,7 +32,7 @@ public class RoleView {
 			*	Update a Role
 			*/
 			else if (userInput == UPDATE_ROLE) {
-				System.out.print("Enter the index of the Role: ");
+				System.out.print("Enter the id of the Role: ");
 				roleIndex = scanner.nextInt();
 				scanner.nextLine();
 				Role role = (Role) Dao.get(roleIndex, "Role");
@@ -41,14 +41,14 @@ public class RoleView {
 					System.out.println("\n\n*****\tSuccessfully updated a Role!");
 				}
 				else {
-					System.out.println("\n\n*****\tWrong Index!");
+					System.out.println("\n\n*****\tWrong Id!");
 				}
 			}
 			/*
 			*	Delete a Role
 			*/
 			else if (userInput == DELETE_ROLE) {
-				System.out.print("Enter the index of the Role: ");
+				System.out.print("Enter the id of the Role: ");
 				roleIndex = scanner.nextInt();
 				scanner.nextLine();
 				Role role = (Role) Dao.get(roleIndex, "Role");
@@ -57,14 +57,14 @@ public class RoleView {
 					System.out.println("\n\n*****\tSuccessfully deleted a Role!");
 				}
 				else {
-					System.out.println("\n\n*****\tWrong Index!");
+					System.out.println("\n\n*****\tWrong Id!");
 				}
 			}
 			/*
 			*	List all the Roles
 			*/
 			else if (userInput == LIST_ROLE) {
-				List<Role> roles = (List<Role>) Dao.getList("Role");
+				List<Role> roles = (List<Role>) Dao.getList("Role.class");
 				System.out.println("\n\n******** List of Roles \t*********\n\n");
 				if(roles.isEmpty()) {
 					System.out.println("\n\n*****\tThere are no roles.");
@@ -91,27 +91,43 @@ public class RoleView {
 			*	Add a role to a Person
 			*/
 			else if (userInput == ADD_PERSON_ROLE) {
-				System.out.print("Enter the index of the Role: ");
+				System.out.print("Enter the id of the Role: ");
 				roleIndex = scanner.nextInt();
 				scanner.nextLine();
-				System.out.print("Enter the index of the Person you want to add to this Role: ");
+				System.out.print("Enter the id of the Person you want to add to this Role: ");
 				int personIndex = scanner.nextInt();
 				scanner.nextLine();
 
 				Role newRole = (Role)Dao.get(roleIndex, "Role");
 				Person person = (Person)Dao.get(personIndex, "Person");
-				person.getRoles().add(newRole);
-				Dao.update(person);
-				System.out.println("\n\n*****\tSuccessfully added a role to a person!");
+
+				Set<Role> roles = person.getRoles();
+				Iterator<Role> iterator = roles.iterator();
+				boolean roleExist = false;
+			    while(iterator.hasNext()) {
+			        Role setRole = iterator.next();
+			        if(setRole.equals(newRole)) {
+			            roleExist = true;
+			        }
+			    }
+
+				if (roleExist) {
+					System.out.println("\n\n*****\tsThe role already exists on the person!");
+				}
+				else {
+					person.getRoles().add(newRole);
+					Dao.update(person);
+					System.out.println("\n\n*****\tSuccessfully added a role to a person!");
+				}
 			}
 			/*
 			*	Remove a role from a Person
 			*/
 			else if (userInput == DELETE_PERSON_ROLE) {
-				System.out.print("Enter the index of the Role: ");
+				System.out.print("Enter the id of the Role: ");
 				roleIndex = scanner.nextInt();
 				scanner.nextLine();
-				System.out.print("Enter the index of the Person you want to remove from this Role: ");
+				System.out.print("Enter the id of the Person you want to remove from this Role: ");
 				int personIndex = scanner.nextInt();
 				scanner.nextLine();
 

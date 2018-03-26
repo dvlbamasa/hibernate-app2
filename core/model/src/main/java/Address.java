@@ -1,11 +1,18 @@
 import java.util.Set;
+import javax.persistence.*;
 
+@Entity
+@Table(name = "address")
 public class Address {
 
 	private int id;
+	
 	private int streetNo;
+	
 	private String barangay;
+	
 	private String municipality;
+	
 	private int zipCode;
 	private Set<Person> persons;
 
@@ -30,6 +37,7 @@ public class Address {
 		this.streetNo = streetNo;
 	}
 
+	@Column(name = "street_no")
 	public int getStreetNo() {
 		return streetNo;
 	}
@@ -38,6 +46,7 @@ public class Address {
 		this.barangay = barangay;
 	}
 
+	@Column(name = "barangay")
 	public String getBarangay() {
 		return barangay;
 	}
@@ -46,6 +55,7 @@ public class Address {
 		this.municipality = municipality;
 	}
 
+	@Column(name = "municipality")
 	public String getMunicipality() {
 		return municipality;
 	}
@@ -54,6 +64,7 @@ public class Address {
 		this.zipCode = zipCode;
 	}
 
+	@Column(name = "zip_code")
 	public int getZipCode() {
 		return zipCode;
 	}

@@ -10,4 +10,11 @@
   <artifactId>model</artifactId>
   <name>model</name>
   <url>http://maven.apache.org</url>
+  <dependencies>
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-annotations</artifactId>
+      <version>3.5.6-Final</version>
+    </dependency>
+  </dependencies>
  </project>

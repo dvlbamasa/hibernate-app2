@@ -1,5 +1,9 @@
 import java.util.Set;
+import javax.persistence.*;
+import static javax.persistence.GenerationType.IDENTITY;
 
+@Entity
+@Table(name = "role")
 public class Role {
 
 	private int id;
@@ -16,6 +20,9 @@ public class Role {
 		this.id = id;
 	}
 
+	@Id
+	@GeneratedValue(strategy = IDENTITY)
+	@Column(name = "id", unique = true, nullable = false)
 	public int getId() {
 		return id;
 	}
@@ -24,6 +31,7 @@ public class Role {
 		this.name = name;
 	}
 
+	@Column(name = "name")
 	public String getName() {
 		return name;
 	}
@@ -32,6 +40,7 @@ public class Role {
 		this.persons = persons;
 	}
 
+	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "person")
 	public Set<Person> getPersons() {
 		return persons;
 	}

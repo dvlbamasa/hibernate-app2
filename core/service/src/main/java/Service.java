@@ -22,8 +22,8 @@ public class Service {
 		float gwa = 0;
 		String dateHired = "";
 		int currentlyEmployed = 0;
-		String landline;
-		String mobileNumber;
+		String landline = "";
+		String mobileNumber = "";
 		String email;
 		String roleName;
 		Set<Role> roles = new HashSet<Role>();
@@ -121,10 +121,24 @@ public class Service {
 				}
 			}
 
-			System.out.print("The following entries are for the contact information.\nEnter the landline: ");
-			landline = scanner.nextLine();
-			System.out.print("Enter the mobile number: ");
-			mobileNumber = scanner.nextLine();
+			invalid = true;
+			while (landline.length() > 20 && landline.equals("")) {
+				System.out.print("The following entries are for the contact information.\nEnter the landline: ");
+				landline = scanner.nextLine();	
+				if (landline.length() > 20) {
+					System.out.println("***** Invalid landline input!");
+				}
+			}
+
+			while (mobileNumber.length() > 20 && mobileNumber.equals("")) {
+				System.out.print("Enter the mobile number: ");
+				mobileNumber = scanner.nextLine();
+				if (mobileNumber.length() > 20) {
+					System.out.println("***** Invalid mobileNumber input!");
+				}
+			}
+			
+			
 			System.out.print("Enter the email: ");
 			email = scanner.nextLine();
 

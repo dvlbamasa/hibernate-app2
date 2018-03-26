@@ -21,9 +21,11 @@
 		<property name="format_sql">false</property>
 	      
 		<!-- List of XML mapping files -->
-		<mapping resource = "Person.hbm.xml"/>
-		<mapping resource = "Role.hbm.xml"/>
-		<mapping resource = "ContactInformation.hbm.xml"/>
+		<mapping class = "Person">
+		<mapping class = "Address">
+		<mapping class = "Name">
+		<mapping class = "Role">
+		<mapping class = "ContactInformation">
 
       
    	</session-factory>

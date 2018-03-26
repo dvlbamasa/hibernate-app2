@@ -1,6 +1,8 @@
 import org.hibernate.HibernateException; 
 import org.hibernate.Session; 
 import org.hibernate.Transaction;
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Order;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.Query;
@@ -100,8 +102,9 @@ public class Dao {
   		Session session = HibernateSession.getSession();
   		List results = null;
   		try {
-			Query query = session.createQuery("from " + object);
-			results = query.list();
+  			Criteria criteria = session.createCriteria(object);
+			//Query query = session.createQuery("from " + object);
+			results = criteria.list();
 		} catch (HibernateException e) {
 			e.printStackTrace(); 
 		} finally {
@@ -114,8 +117,10 @@ public class Dao {
   		Session session = HibernateSession.getSession();
   		List results = null;
   		try {
-			Query query = session.createQuery("from " + object + " ORDER BY " + order + " ASC");
-			results = query.list();
+  			Criteria criteria = session.createCriteria(object);
+  			criteria.addOrder(Order.asc(order));
+			//Query query = session.createQuery("from " + object + " ORDER BY " + order + " ASC");
+			results = criteria.list();
 		} catch (HibernateException e) {
 			e.printStackTrace(); 
 		} finally {

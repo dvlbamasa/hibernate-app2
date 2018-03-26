@@ -31,30 +31,38 @@ public class PersonApp {
 	public void showMenu() {
 		int userInput = -1;
 		while (userInput != EXIT) {
-			try {
+			try {	
 				Util.printStartScreen();
 				Util.printMenu();
 				userInput = scanner.nextInt();
 				scanner.nextLine();
-				if (userInput == PERSON) {
-					PersonView.showPersonView();
+				switch (userInput) {
+
+					case PERSON : 
+						PersonView.showPersonView();
+						break;
+
+					case ROLE : 
+						RoleView.showRoleView();
+						break;
+
+					case CONTACT_INFORMATION :
+						ContactView.showContactView();
+						break;
+
+					case EXIT :
+						System.out.println("Terminating Application...");
+						break;
+
+					default :
+						System.out.println("***Wrong input choice!");
+						break;
 				}
-				else if (userInput == ROLE) {
-					RoleView.showRoleView();
-				}
-				else if (userInput == CONTACT_INFORMATION) {
-					ContactView.showContactView();
-				}
-				else if (userInput == EXIT) {
-					System.out.println("Terminating Application...");
-				}
-				else {
-					System.out.println("***Wrong input choice!");
-				}
+
 			} catch (java.util.InputMismatchException e) {
 				System.out.println("***Wrong input choice!");
 				scanner.nextLine();
-			}
+			}	
 		}
 		System.exit(0);
 	}

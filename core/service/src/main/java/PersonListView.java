@@ -17,38 +17,33 @@ public class PersonListView {
 			Util.printListPersonOptions();
 			int userInput = scanner.nextInt();
 			scanner.nextLine();
-			/*
-			*	List Person Order by GWA
-			*/
-			if (userInput == GWA) {
-				List<Person> persons = (List<Person>) Dao.getList("Person");
-				Collections.sort(persons, (person1, person2) -> {
-					return Float.compare(person1.getGwa(), person2.getGwa());
-				});
-				printOrderedList(persons, "GWA");
-			}
-			/*
-			*	List Person Order by Date Hired
-			*/
-			else if (userInput == DATE_HIRED) {
-				List<Person> persons = (List<Person>) Dao.getOrderedList("Person", "date_hired");
-				printOrderedList(persons, "Date Hired");
-			}
-			/*
-			*	List Person Order by Last Name
-			*/
-			else if (userInput == LAST_NAME) {
-				List<Person> persons = (List<Person>) Dao.getOrderedList("Person", "last_name");
-				printOrderedList(persons, "Last Name");
-			}
-			/*
-			*	Go back
-			*/
-			else if (userInput == BACK) {
-				return;
-			}
-			else {
-				System.out.println("***Wrong input choice!");
+			List<Person> persons;
+			switch (userInput) {
+				case GWA :
+					persons = (List<Person>) Dao.getList("Person.class");
+					Collections.sort(persons, (person1, person2) -> {
+						return Float.compare(person1.getGwa(), person2.getGwa());
+					});
+					printOrderedList(persons, "GWA");
+					break;
+
+				case DATE_HIRED :
+					persons = (List<Person>) Dao.getOrderedList("Person.class", "date_hired");
+					printOrderedList(persons, "Date Hired");
+					break;
+
+				case LAST_NAME : 
+					persons = (List<Person>) Dao.getOrderedList("Person.class", "last_name");
+					printOrderedList(persons, "Last Name");
+					break;
+
+				case BACK :
+					return;
+
+				default :
+					System.out.println("***Wrong input choice!");
+					break;
+
 			}
 		} catch (java.util.InputMismatchException e) {
 				System.out.println("***Wrong input choice!");
