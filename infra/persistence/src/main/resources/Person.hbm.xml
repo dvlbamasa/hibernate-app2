@@ -1,0 +1,54 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//Hibernate/Hibernate Mapping DTD//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"> 
+
+<hibernate-mapping>
+   <class name = "Person" table = "person">
+      
+      <id name = "id" type = "int" column = "id">
+         <generator class="increment"/>
+      </id>
+
+      <!--Embeddable-->
+      <component name="name" class = "Name">
+         <property name = "firstName" column = "first_name" type = "string"/>
+         <property name = "middleName" column = "middle_name" type = "string"/>
+         <property name = "lastName" column = "last_name" type = "string"/>
+      </component>
+
+      <!--Many-to-One-->
+      <many-to-one name = "address" column = "address" cascade="save-update" 
+         lazy = "false" class="Address" not-null="true"/>
+
+      <property name = "birthday" column = "birthday" type = "date"/>
+      <property name = "gwa" column = "gwa" type = "float"/>
+      <property name = "dateHired" column = "date_hired" type = "date"/>
+      <property name = "currentlyEmployed" column = "currently_employed" type = "boolean"/>
+
+      <!--One-to-One-->
+      <one-to-one name="contactInformation" class="ContactInformation"
+         cascade="delete, save-update" lazy = "false"></one-to-one>
+
+      <!--Many-to-Many-->
+      <set name = "roles" inverse="false" lazy="false" cascade="save-update"
+         table="person_role">
+         <key column = "person_id"/>
+         <many-to-many column = "role_id" class="Role"/>
+      </set>
+   </class>
+
+   <class name = "Address" table="address">
+         
+      <id name = "id" type = "int" column = "id">
+         <generator class="increment"/>
+      </id>
+      
+      <property name = "streetNo" column = "street_no" type = "int"/>
+      <property name = "barangay" column = "barangay" type = "string"/>
+      <property name = "municipality" column = "municipality" type = "string"/>
+      <property name = "zipCode" column = "zip_code" type = "int"/>
+      
+   </class>
+
+</hibernate-mapping>
