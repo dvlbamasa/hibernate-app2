@@ -20,4 +20,25 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <project.version>1.0-SNAPSHOT</project.version>
   </properties>
+  <profiles>
+    <profile>
+      <activation>
+        <property>
+          <name>staging</name>
+          <value>true</value>
+        </property>
+      </activation>
+      <id>staging</id> 
+      <properties>
+          <db.dialect>org.hibernate.dialect.PostgreSQL82Dialect</db.dialect>
+          <db.driverClass>org.postgresql.Driver</db.driverClass>
+          <db.jdbcUrl>jdbc:postgresql://localhost:5432/persondb</db.jdbcUrl>
+          <db.user>postgres</db.user>
+          <db.password>password</db.password>
+          <db.second_level_cache>true</db.second_level_cache>
+          <db.cache.region_factory>org.hibernate.cache.ehcache.EhCacheRegionFactory</db.cache.region_factory>
+          <db.hbm2ddl>update</db.hbm2ddl>
+      </properties>
+    </profile>
+  </profiles>
 </project>

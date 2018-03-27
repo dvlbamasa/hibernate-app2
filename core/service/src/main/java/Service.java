@@ -10,13 +10,15 @@ public class Service {
 	private static Scanner scanner = new Scanner(System.in).useDelimiter("\n");
 	private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy", Locale.ENGLISH);
 	
+
 	public static Person getPersonInput(boolean update, Person personToUpdate) {
-		String firstName;
-		String middleName;
-		String lastName;
+		String firstName = "";
+		String middleName = "";
+		String lastName = "";
+		int gender = 0;
 		int streetNo = 0;
-		String barangay;
-		String municipality;
+		String barangay = "";
+		String municipality = "";
 		int zipCode = 0;
 		String birthday = "";
 		float gwa = 0;
@@ -24,33 +26,35 @@ public class Service {
 		int currentlyEmployed = 0;
 		String landline = "";
 		String mobileNumber = "";
-		String email;
-		String roleName;
+		String email = "";
+		String roleName = "";
 		Set<Role> roles = new HashSet<Role>();
 		Set<Person> persons = new HashSet<Person>();
 		Person person = null;
-		boolean invalid = true;
 		try {
-			System.out.print("Enter the first name: ");
-			firstName = scanner.nextLine();
-			System.out.print("Enter the middle name: ");
-			middleName = scanner.nextLine();
-			System.out.print("Enter the last name: ");
-			lastName = scanner.nextLine();
+
+			firstName = Util.validateInputString(firstName, 20, "Enter the first name: ");
+			middleName = Util.validateInputString(middleName, 20, "Enter the middle name: ");
+			lastName = Util.validateInputString(lastName, 20, "Enter the last name: ");
 
 			Name personName = new Name(firstName, middleName, lastName);
-
-			while (invalid) {
+			
+			while (gender != 1 && gender != 2) {
 				try {
-					System.out.print("Enter the birthday (MM-DD-YYYY): ");
-					birthday = scanner.nextLine();
-					LocalDate.parse(birthday, formatter);
-					invalid = false;
-				} catch (java.time.format.DateTimeParseException e) {
-					System.out.println("***** Wrong input for birthday! Please follow the format and try again.");
-					invalid = true;
+					System.out.print("Enter the gender, 1 for MALE or 2 for FEMALE: ");
+					gender = scanner.nextInt();
+					scanner.nextLine();
+					if (gender != 1 && gender != 2) {
+						System.out.println("***** The value should only be 1 for MALE or 2 for FEMALE!");
+					}
+				} catch (java.util.InputMismatchException e) {
+					System.out.println("***** Invalid input for gender!");
+					scanner.nextLine();
 				}
 			}
+
+			birthday = Util.validateInputDate(birthday, "Enter the birthday (MM-DD-YYYY): ");
+
 			while (gwa < 1.0 || gwa > 3.0) {
 				try{
 					System.out.print("Enter the gwa: ");
@@ -64,18 +68,9 @@ public class Service {
 					scanner.nextLine();
 				}
 			}
-			invalid = true;
-			while (invalid) {
-				try {
-					System.out.print("Enter the date hired (MM-DD-YYYY): ");
-					dateHired = scanner.nextLine();	
-					LocalDate.parse(dateHired, formatter);
-					invalid = false;
-				} catch (java.time.format.DateTimeParseException e) {
-					System.out.println("***** Wrong input for date hired! Please follow the format and try again.");
-					invalid = true;
-				}
-			}
+
+			dateHired = Util.validateInputDate(dateHired, "Enter the date hired (MM-DD-YYYY): ");
+			
 			while (currentlyEmployed != 1 && currentlyEmployed != 2) {
 				try{
 					System.out.print("Enter 1 if currently employed or 2 if not: ");
@@ -89,85 +84,40 @@ public class Service {
 					scanner.nextLine();
 				}
 			}
-			invalid = true;
-			while (invalid) {
-				try {
-					System.out.print("The following entries are for the address info.\nEnter the street number: ");
-					streetNo = scanner.nextInt();
-					scanner.nextLine();
-					invalid = false;
-				} catch (java.util.InputMismatchException e) {
-					System.out.println("***** Invalid street number input!");
-					scanner.nextLine();
-					invalid = true;
-				}
-			}
-			System.out.print("Enter the barangay: ");
-			barangay = scanner.nextLine();
-			System.out.print("Enter the municipality: ");
-			municipality = scanner.nextLine();
+			streetNo = Util.validateInputInt(streetNo, "The following entries are for the address info.\nEnter the street number: ");
+			barangay = Util.validateInputString(barangay, 20, "Enter the barangay name: ");	
+			municipality = Util.validateInputString(municipality, 20, "Enter the municipality name: ");
+			zipCode = Util.validateInputInt(zipCode, "Enter the zip code: ");			
+			landline = Util.validateInputString(landline, 20, "The following entries are for the contact information.\nEnter the landline: ");
+			mobileNumber = Util.validateInputString(mobileNumber, 20, "Enter the mobile number: ");
+			email = Util.validateInputString(email, 30, "Enter the email: ");
+			//roleName = Util.validateInputString(roleName, 20, "Enter the role name: ");
 			
-			invalid = true;
-			while (invalid) {
-				try {
-					System.out.print("Enter the zip code: ");
-					zipCode = scanner.nextInt();
-					scanner.nextLine();
-					invalid = false;
-				} catch (java.util.InputMismatchException e) {
-					System.out.println("***** Invalid zip code input!");
-					scanner.nextLine();
-					invalid = true;
-				}
-			}
 
-			invalid = true;
-			while (landline.length() > 20 && landline.equals("")) {
-				System.out.print("The following entries are for the contact information.\nEnter the landline: ");
-				landline = scanner.nextLine();	
-				if (landline.length() > 20) {
-					System.out.println("***** Invalid landline input!");
-				}
-			}
-
-			while (mobileNumber.length() > 20 && mobileNumber.equals("")) {
-				System.out.print("Enter the mobile number: ");
-				mobileNumber = scanner.nextLine();
-				if (mobileNumber.length() > 20) {
-					System.out.println("***** Invalid mobileNumber input!");
-				}
-			}
-			
-			
-			System.out.print("Enter the email: ");
-			email = scanner.nextLine();
-
-			System.out.print("Enter the name of role: ");
-			roleName = scanner.nextLine();
-			
 			Address personAddress = new Address(streetNo, barangay, municipality, zipCode);
 			
 			ContactInformation personContactInformation = new ContactInformation(landline, mobileNumber, email);
 
-			Role role = new Role(roleName);
+			//Role role = new Role(roleName);
 
-			person = new Person(personName, personAddress, java.sql.Date.valueOf(LocalDate.parse(birthday, formatter)), gwa, 
+			Dao.create(personAddress);
+
+			person = new Person(personName, (gender == 1 ? Person.Gender.MALE : Person.Gender.FEMALE), personAddress, java.sql.Date.valueOf(LocalDate.parse(birthday, formatter)), gwa, 
 								java.sql.Date.valueOf(LocalDate.parse(dateHired, formatter)), (currentlyEmployed == 1 ? true : false));
 			
 			personContactInformation.setPerson(person);
 			person.setContactInformation(personContactInformation);
 
-			roles.add(new Role(roleName));
-			persons.add(person);
+			roles = addRolesToPerson(roles, person);
+			//roles.add(new Role(roleName));
+			//persons.add(person);
 
-			personAddress.setPersons(persons);
-			role.setPersons(persons);
+			//role.setPersons(persons);
 			person.setRoles(roles);
-			
-			Dao.create(personAddress);
 
 			if (update) {
 				personToUpdate.setName(personName);
+				personToUpdate.setGender((gender == 1 ? Person.Gender.MALE : Person.Gender.FEMALE));
 				personToUpdate.setAddress(personAddress);
 				personToUpdate.setBirthday(java.sql.Date.valueOf(LocalDate.parse(birthday, formatter)));
 				personToUpdate.setGwa(gwa);
@@ -182,6 +132,30 @@ public class Service {
 		}
 
 		return update ? personToUpdate : person;
+	}
+
+	public static Set<Role> addRolesToPerson(Set<Role> roles, Person person) {
+		int roleInput = -1;
+		Role role;
+		while (roleInput != 0) {
+			try {
+				RoleView.printRoleList();
+				System.out.print("\n\nEnter the role id you want to add to a person (press 0 if you are done): ");
+				roleInput = scanner.nextInt();
+				role = (Role) Dao.get(roleInput, "Role");
+				if(role != null) {
+					roles.add(role);
+					role.getPersons().add(person);
+				}
+				else {
+					System.out.println("\n\n*****\tWrong Id!");
+				}
+			} catch (java.util.InputMismatchException e) {
+				e.printStackTrace();
+			}
+		}
+		return roles;
+		
 	}
 
 	public static Role getRoleInput(boolean update, Role roleToUpdate) {

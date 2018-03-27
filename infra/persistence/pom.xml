@@ -10,6 +10,17 @@
   <artifactId>persistence</artifactId>
   <name>persistence</name>
   <url>http://maven.apache.org</url>
+  <build>
+    <resources>
+      <resource>
+        <filtering>true</filtering>
+        <directory>${basedir}/src/main/resources</directory>
+        <includes>
+          <include>hibernate.cfg.xml</include>
+        </includes>
+      </resource>
+    </resources>
+  </build>
   <dependencies>
     <dependency>
       <groupId>org.postgresql</groupId>
@@ -23,8 +34,18 @@
     </dependency>
     <dependency>
       <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-ehcache</artifactId>
+      <version>5.2.15.Final</version>
+    </dependency>
+    <dependency>
+      <groupId>org.hibernate</groupId>
       <artifactId>hibernate-annotations</artifactId>
       <version>3.5.6-Final</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+      <version>1.5.6</version>
     </dependency>
     <dependency>
       <groupId>com.exist</groupId>

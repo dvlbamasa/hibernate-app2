@@ -4,9 +4,11 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Table(name = "role")
-public class Role {
+@Cacheable
+@AttributeOverride(name = "id", column = @Column(name = "role_id"))
+public class Role extends EntityParent{
 
-	private int id;
+	private long id;
 	private String name;
 	private Set<Person> persons;
 
@@ -16,14 +18,15 @@ public class Role {
 		this.name = name;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
 	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "id", unique = true, nullable = false)
-	public int getId() {
+	@GeneratedValue
+	@Column(name = "role_id", unique = true, nullable = false)
+	@Override
+	public long getId() {
 		return id;
 	}
 
@@ -31,7 +34,7 @@ public class Role {
 		this.name = name;
 	}
 
-	@Column(name = "name")
+	@Column(name = "name", nullable = false)
 	public String getName() {
 		return name;
 	}
@@ -40,7 +43,7 @@ public class Role {
 		this.persons = persons;
 	}
 
-	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "person")
+	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "roles")
 	public Set<Person> getPersons() {
 		return persons;
 	}

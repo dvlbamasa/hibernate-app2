@@ -24,16 +24,19 @@ public class PersonView {
 				case CREATE_PERSON :
 					Dao.create(Service.getPersonInput(false, null));
 					System.out.println("\n\n*****\tSuccessfully created a new Person!");
+					PersonListView.listLastName();
 					break;
 
 				case DELETE_PERSON :
-					System.out.print("Enter the id of the Person: ");
+					PersonListView.listLastName();
+					System.out.print("\n\nEnter the id of the Person: ");
 					personIndex = scanner.nextInt();
 					scanner.nextLine();
 					person = (Person) Dao.get(personIndex, "Person");
 					if (person != null) {
 						Dao.delete(person);
 						System.out.println("\n\n*****\tSuccessfully deleted a Person!");
+						PersonListView.listLastName();
 					}
 					else {
 						System.out.println("\n\n*****\tWrong Index!");
@@ -41,13 +44,15 @@ public class PersonView {
 					break;
 
 				case UPDATE_PERSON :
-					System.out.print("Enter the id of the Person: ");
+					PersonListView.listLastName();
+					System.out.print("\n\nEnter the id of the Person: ");
 					personIndex = scanner.nextInt();
 					scanner.nextLine();
 					person = (Person) Dao.get(personIndex, "Person");
 					if (person != null) {
 						Dao.update(Service.getPersonInput(true, person));
 						System.out.println("\n\n*****\tSuccessfully updated a Person!");
+						PersonListView.listLastName();
 					}
 					else {
 						System.out.println("\n\n*****\tWrong Index!");

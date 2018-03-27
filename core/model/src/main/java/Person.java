@@ -1,32 +1,35 @@
 import java.util.Date;
 import java.util.Set;
 import javax.persistence.*;
+import org.hibernate.annotations.Type;
 import static javax.persistence.GenerationType.IDENTITY;
 
 
 @Entity
 @Table(name = "person")
-public class Person {
+@AttributeOverride(name = "id", column = @Column(name = "person_id"))
+public class Person extends EntityParent{
 	
-	private int id;
-	
+	private long id;
 	private Name name;
+	private Gender gender;
 	private Address address;
 	private Date birthday;
-	
 	private float gwa;
-	
 	private Date dateHired;
-	
 	private boolean currentlyEmployed;
 	private ContactInformation contactInformation;
 	private Set<Role> roles;
+	public static enum Gender {
+    	MALE, FEMALE
+	}
 
 	public Person() {}
-	
-	public Person(Name name, Address address, Date birthday, float gwa, 
+
+	public Person(Name name, Gender gender, Address address, Date birthday, float gwa, 
 					Date dateHired, boolean currentlyEmployed) {
 		this.name = name;
+		this.gender = gender;
 		this.address = address;
 		this.birthday = birthday;
 		this.gwa = gwa;
@@ -34,13 +37,14 @@ public class Person {
 		this.currentlyEmployed = currentlyEmployed;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
-	@Id @GeneratedValue(strategy = IDENTITY)
-	@Column(name = "id", unique = true, nullable = false)
-	public int getId() {
+	@Id @GeneratedValue
+	@Column(name = "person_id", unique = true, nullable = false)
+	@Override
+	public long getId() {
 		return id;
 	}
 
@@ -53,11 +57,22 @@ public class Person {
 		return name;
 	}
 
+	public void setGender(Gender gender) {
+		this.gender = gender;
+	}
+
+	@Enumerated(EnumType.STRING)
+	@Column(name = "gender", nullable = false)
+	public Gender getGender() {
+		return gender;
+	}
+
 	public void setAddress(Address address) {
 		this.address = address;
 	}
 
 	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "address")
 	public Address getAddress() {
 		return address;
 	}
@@ -66,7 +81,7 @@ public class Person {
 		this.birthday = birthday;
 	}
 
-	@Column(name = "birthday")
+	@Column(name = "birthday", nullable = false)
 	public Date getBirthday() {
 		return birthday;
 	}
@@ -75,7 +90,7 @@ public class Person {
 		this.gwa = gwa;
 	}
 
-	@Column(name = "gwa")
+	@Column(name = "gwa", nullable = false)
 	public float getGwa() {
 		return gwa;
 	}
@@ -85,7 +100,7 @@ public class Person {
 		this.dateHired = dateHired;
 	}
 
-	@Column(name = "date_hired")
+	@Column(name = "date_hired", nullable = false)
 	public Date getDateHired() {
 		return dateHired;
 	}
@@ -94,7 +109,8 @@ public class Person {
 		this.currentlyEmployed = currentlyEmployed;
 	}
 
-	@Column(name = "currently_employed")
+	@Type(type="yes_no")
+	@Column(name = "currently_employed", nullable = false)
 	public boolean getCurrentlyEmployed() {
 		return currentlyEmployed;
 	}
@@ -112,7 +128,7 @@ public class Person {
 		this.roles = roles;
 	}
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "person_role", joinColumns = { 
 			@JoinColumn(name = "person_id", nullable = false, updatable = false) }, 
 			inverseJoinColumns = { @JoinColumn(name = "role_id", 

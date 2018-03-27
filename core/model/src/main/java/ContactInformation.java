@@ -6,7 +6,7 @@ import org.hibernate.annotations.Parameter;
 @Table(name = "contact_information")
 public class ContactInformation {
 	
-	private int id;
+	private long id;
 	private String landline;
 	private String mobileNumber;
 	private String email;
@@ -20,7 +20,7 @@ public class ContactInformation {
 		this.email = email;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -28,8 +28,8 @@ public class ContactInformation {
 	parameters = @Parameter(name = "property", value = "person"))
 	@Id
 	@GeneratedValue(generator = "generator")
-	@Column(name = "id", unique = true, nullable = false)
-	public int getId() {
+	@Column(name = "contact_id", unique = true, nullable = false)
+	public long getId() {
 		return id;
 	}
 

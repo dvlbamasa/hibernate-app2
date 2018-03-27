@@ -1,20 +1,17 @@
 import java.util.Set;
 import javax.persistence.*;
+import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Table(name = "address")
-public class Address {
+@AttributeOverride(name = "id", column = @Column(name = "address_id"))
+public class Address extends EntityParent{
 
-	private int id;
-	
+	private long id;
 	private int streetNo;
-	
 	private String barangay;
-	
 	private String municipality;
-	
 	private int zipCode;
-	private Set<Person> persons;
 
 	public Address() {}
 
@@ -25,11 +22,15 @@ public class Address {
 		this.zipCode = zipCode;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
-	public int getId() {
+	@Id
+	@GeneratedValue
+	@Column(name = "address_id", nullable = false, unique = true)
+	@Override
+	public long getId() {
 		return id;
 	}
 
@@ -37,7 +38,7 @@ public class Address {
 		this.streetNo = streetNo;
 	}
 
-	@Column(name = "street_no")
+	@Column(name = "street_no", nullable = false)
 	public int getStreetNo() {
 		return streetNo;
 	}
@@ -46,7 +47,7 @@ public class Address {
 		this.barangay = barangay;
 	}
 
-	@Column(name = "barangay")
+	@Column(name = "barangay", nullable = false)
 	public String getBarangay() {
 		return barangay;
 	}
@@ -55,7 +56,7 @@ public class Address {
 		this.municipality = municipality;
 	}
 
-	@Column(name = "municipality")
+	@Column(name = "municipality", nullable = false)
 	public String getMunicipality() {
 		return municipality;
 	}
@@ -64,16 +65,8 @@ public class Address {
 		this.zipCode = zipCode;
 	}
 
-	@Column(name = "zip_code")
+	@Column(name = "zip_code", nullable = false)
 	public int getZipCode() {
 		return zipCode;
-	}
-
-	public void setPersons(Set<Person> persons) {
-		this.persons = persons;
-	}
-
-	public Set<Person> getPersons() {
-		return persons;
 	}
 }

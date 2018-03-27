@@ -17,24 +17,17 @@ public class PersonListView {
 			Util.printListPersonOptions();
 			int userInput = scanner.nextInt();
 			scanner.nextLine();
-			List<Person> persons;
 			switch (userInput) {
 				case GWA :
-					persons = (List<Person>) Dao.getList("Person.class");
-					Collections.sort(persons, (person1, person2) -> {
-						return Float.compare(person1.getGwa(), person2.getGwa());
-					});
-					printOrderedList(persons, "GWA");
+					listGwa();
 					break;
 
 				case DATE_HIRED :
-					persons = (List<Person>) Dao.getOrderedList("Person.class", "date_hired");
-					printOrderedList(persons, "Date Hired");
+					listDateHired();
 					break;
 
 				case LAST_NAME : 
-					persons = (List<Person>) Dao.getOrderedList("Person.class", "last_name");
-					printOrderedList(persons, "Last Name");
+					listLastName();
 					break;
 
 				case BACK :
@@ -51,6 +44,24 @@ public class PersonListView {
 		}
 	}
 
+	public static void listGwa() {
+		List<Person> persons = (List<Person>) Dao.getList("Person");
+					Collections.sort(persons, (person1, person2) -> {
+						return Float.compare(person1.getGwa(), person2.getGwa());
+					});
+		printOrderedList(persons, "GWA");
+	}
+
+	public static void listDateHired() {
+		List<Person> persons = (List<Person>) Dao.getOrderedList("Person", "dateHired");
+		printOrderedList(persons, "Date Hired");
+	}
+
+	public static void listLastName() {
+		List<Person> persons = (List<Person>) Dao.getOrderedList("Person", "name.lastName");
+		printOrderedList(persons, "Last Name");
+	}
+
 	private static void printOrderedList(List<Person> persons, String order) {
 		if (persons.isEmpty()) {
 			System.out.println("The person list is empty!");
@@ -63,6 +74,7 @@ public class PersonListView {
 									"\n\tFirst Name: " + person.getName().getFirstName() + 
 									"\n\tMiddle Name: " + person.getName().getMiddleName() + 
 									"\n\tLast Name: " + person.getName().getLastName() +
+									"\nGender: " + person.getGender() +
 									"\nAddress- " + 
 									"\n\tStreet Number: " + person.getAddress().getStreetNo() + 
 									"\n\tBarangay: " + person.getAddress().getBarangay() + 

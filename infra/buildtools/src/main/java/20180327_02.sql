@@ -6,47 +6,48 @@ DROP TABLE person_role CASCADE;
 
 
 CREATE TABLE address (
-	id INT PRIMARY KEY NOT NULL,
+	address_id BIGINT PRIMARY KEY NOT NULL,
 	street_no INT NOT NULL,
-	barangay CHAR(20) NOT NULL,
-	municipality CHAR(20) NOT NULL,
+	barangay VARCHAR(20) NOT NULL,
+	municipality VARCHAR(20) NOT NULL,
 	zip_code INT NOT NULL
 );
 
 CREATE TABLE contact_information (
-	id INT PRIMARY KEY NOT NULL,
-	landline CHAR(20) NOT NULL,
-	mobile_number CHAR(20) NOT NULL,
-	email CHAR(30) NOT NULL
+	contact_id BIGINT PRIMARY KEY NOT NULL,
+	landline VARCHAR(20) NOT NULL,
+	mobile_number VARCHAR(20) NOT NULL,
+	email VARCHAR(30) NOT NULL
 );
 
 CREATE TABLE person (
-	id INT PRIMARY KEY NOT NULL,
-	first_name CHAR(20) NOT NULL,
-	middle_name CHAR(20) NOT NULL,
-	last_name CHAR(20) NOT NULL,
-	address INT NOT NULL,
+	person_id BIGINT PRIMARY KEY NOT NULL,
+	first_name VARCHAR(20) NOT NULL,
+	middle_name VARCHAR(20) NOT NULL,
+	last_name VARCHAR(20) NOT NULL,
+	gender	VARCHAR(10) NOT NULL,
+	address BIGINT NOT NULL,
 	birthday DATE NOT NULL,
 	gwa FLOAT NOT NULL,
 	date_hired DATE NOT NULL,
-	currently_employed BOOLEAN NOT NULL
+	currently_employed CHAR(1) NOT NULL
 );
 
 
 CREATE TABLE role (
-	id INT PRIMARY KEY NOT NULL,
-	name CHAR(20) NOT NULL
+	role_id BIGINT PRIMARY KEY NOT NULL,
+	name VARCHAR(20) NOT NULL
 );
 
 CREATE TABLE person_role (
-	person_id INT NOT NULL,
-	role_id INT NOT NULL,
+	person_id BIGINT NOT NULL,
+	role_id BIGINT NOT NULL,
 	PRIMARY KEY (person_id, role_id)
 );
 
 ALTER TABLE contact_information 
        add CONSTRAINT FKauxbhl67hx6ftcqayqtu8xmes 
-       FOREIGN KEY (id) 
+       FOREIGN KEY (contact_id) 
        REFERENCES person;
     
 ALTER TABLE person 

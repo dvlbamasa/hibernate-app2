@@ -18,7 +18,8 @@ public class ContactView {
 			Person person;
 			switch (userInput) {
 				case CREATE_CONTACT :
-					System.out.print("Enter the id of the Person associated with this contact information: ");
+					PersonListView.listLastName();
+					System.out.print("\n\nEnter the id of the Person associated with this contact information: ");
 					int personIndex = scanner.nextInt();
 					scanner.nextLine();
 					person = (Person)Dao.get(personIndex, "Person");
@@ -37,7 +38,8 @@ public class ContactView {
 					break;
 
 				case UPDATE_CONTACT : 
-					System.out.print("Enter the id of the Contact Information: ");
+					PersonListView.listLastName();
+					System.out.print("\n\nEnter the id of the Contact Information: ");
 					contactIndex = scanner.nextInt();
 					scanner.nextLine();
 					contactInformation = (ContactInformation) Dao.get(contactIndex, "ContactInformation");
@@ -51,7 +53,8 @@ public class ContactView {
 					break;
 
 				case DELETE_CONTACT :
-					System.out.print("Enter the id of the Contact Information: ");
+					PersonListView.listLastName();
+					System.out.print("\n\nEnter the id of the Contact Information: ");
 					contactIndex = scanner.nextInt();
 					scanner.nextLine();
 					contactInformation = (ContactInformation) Dao.get(contactIndex, "ContactInformation");

@@ -1,5 +1,71 @@
+import java.util.Scanner;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
+import java.util.Locale;
+
+
 public class Util {
 	
+	private static Scanner scanner = new Scanner(System.in).useDelimiter("\n");
+	private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy", Locale.ENGLISH);
+
+	public static String validateInputString(String property, int stringLength, String prompt) {
+		while (!validateInputLength(property, stringLength)) {
+			System.out.print(prompt);
+			property = scanner.nextLine();
+			if (!validateInputLength(property, stringLength)) {
+				System.out.println("***** The maximum length is " + stringLength + " characters!");
+			}
+		}
+		return property;	
+	}
+
+	public static int validateInputInt(int property, String prompt) {
+		boolean invalid = true;
+		while (invalid) {
+			try {
+				System.out.print(prompt);
+				property = scanner.nextInt();
+				scanner.nextLine();
+				invalid = false;
+			} catch (java.util.InputMismatchException e) {
+				System.out.println("***** Invalid input!");
+				scanner.nextLine();
+				invalid = true;
+			}
+		}
+		return property;
+	}
+
+	public static String validateInputDate(String property, String prompt) {
+		boolean invalid = true;
+		while (invalid) {
+			try {
+				System.out.print(prompt);
+				property = scanner.nextLine();	
+				LocalDate.parse(property, formatter);
+				invalid = false;
+			} catch (java.time.format.DateTimeParseException e) {
+				System.out.println("***** Wrong input for date! Please follow the format and try again.");
+				invalid = true;
+			}
+		}
+		return property;
+	}
+
+	public static boolean validateInputLength(String property, int stringLength) {
+		if (property.length() < stringLength && !property.equals("")) {
+			return true;
+		}
+		if (property.equals("")) {
+			return false;
+		}
+		else {
+			return false;
+		}
+
+	}
+
 	public static void printStartScreen() {
 		System.out.println("\n\n*****	Welcome to the Simple Hibernate App!	*****");
 	}
@@ -40,11 +106,10 @@ public class Util {
 		System.out.print("Role Functionalities: " +
 							"\n1. Add Role" +
 							"\n2. Update Role" +
-							"\n3. Delete Role" +
-							"\n4. List Role" +
-							"\n5. Add Person Role" +
-							"\n6. Delete Person Role" +
-							"\n7. Back" +
+							"\n3. List Role" +
+							"\n4. Add Person Role" +
+							"\n5. Delete Person Role" +
+							"\n6. Back" +
 							"\nEnter your choice: ");
 	}
 

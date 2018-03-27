@@ -1,12 +1,11 @@
 import javax.persistence.*;
+import static javax.persistence.GenerationType.IDENTITY;
 
 @Embeddable
 public class Name {
 
-	private int id;
 	private String firstName;
 	private String middleName;
-	
 	private String lastName;
 
 	public Name() {}
@@ -17,19 +16,11 @@ public class Name {
 		this.lastName = lastName;
 	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public int getId() {
-		return id;
-	}
-
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
 
-	@Column(name = "first_name")
+	@Column(name = "first_name", nullable = false)
 	public String getFirstName() {
 		return firstName;
 	}
@@ -38,7 +29,7 @@ public class Name {
 		this.middleName = middleName;
 	}
 
-	@Column(name = "middle_name")
+	@Column(name = "middle_name", nullable = false)
 	public String getMiddleName() {
 		return middleName;
 	}
@@ -47,7 +38,7 @@ public class Name {
 		this.lastName = lastName;
 	}
 
-	@Column(name = "last_name")
+	@Column(name = "last_name", nullable = false)
 	public String getLastName() {
 		return lastName;
 	}
