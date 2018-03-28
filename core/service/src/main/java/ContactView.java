@@ -18,54 +18,79 @@ public class ContactView {
 			Person person;
 			switch (userInput) {
 				case CREATE_CONTACT :
-					PersonListView.listLastName();
-					System.out.print("\n\nEnter the id of the Person associated with this contact information: ");
-					int personIndex = scanner.nextInt();
-					scanner.nextLine();
-					person = (Person)Dao.get(personIndex, "Person");
-					if (person != null) {
-						if (person.getContactInformation() != null) {
-							System.out.println("\n\n*****\tThe person has a contact information already!");
+					if (!Dao.isDBEmpty()) {
+						PersonListView.printPersonNameId();
+						int personIndex = 0;
+						personIndex = Util.validateInputInt(personIndex, "\n\nEnter the id of the Person associated with this contact information: ");
+						person = (Person)Dao.get(personIndex, "Person");
+						if (person != null) {
+							if (person.getContactInformation() != null) {
+								System.out.println("\n\n*****\tThe person has a contact information already!");
+							}
+							else {
+								Service.getContactInput(false, person);
+								PersonListView.printPersonInformation(person, "");
+								System.out.println("\n\n*****\tSuccessfully created a new contact information!");	
+							}
 						}
 						else {
-							Service.getContactInput(false, person);
-							System.out.println("\n\n*****\tSuccessfully created a new contact information!");	
+							System.out.println("\n\n*****\tWrong id!");
 						}
 					}
 					else {
-						System.out.println("\n\n*****\tWrong id!");
+						System.out.println("\n\n*****\tThe person list is empty!");
 					}
 					break;
 
 				case UPDATE_CONTACT : 
-					PersonListView.listLastName();
-					System.out.print("\n\nEnter the id of the Contact Information: ");
-					contactIndex = scanner.nextInt();
-					scanner.nextLine();
-					contactInformation = (ContactInformation) Dao.get(contactIndex, "ContactInformation");
-					if (contactInformation != null) {
-						Dao.update(Service.getContactInput(true, contactInformation));
-						System.out.println("\n\n*****\tSuccessfully updated a contact information!");
+					if (!Dao.isDBEmpty()) {
+						PersonListView.printPersonNameId();
+						contactIndex = Util.validateInputInt(contactIndex, "\n\nEnter the id of the Contact Information: ");
+						person = (Person)Dao.get(contactIndex, "Person");
+						contactInformation = (ContactInformation) Dao.get(contactIndex, "ContactInformation");
+						if (person != null) {
+							if (person.getContactInformation() == null) {
+								System.out.println("\n\n*****\tThe person has no contact information to update!");
+							}
+							else {
+								contactInformation = person.getContactInformation();
+								Dao.update(Service.getContactInput(true, contactInformation));
+								PersonListView.printPersonInformation(contactInformation.getPerson(), "");
+								System.out.println("\n\n*****\tSuccessfully updated a contact information!");
+							}
+						}
+						else {
+							System.out.println("\n\n*****\tWrong Id!");
+						}
 					}
 					else {
-						System.out.println("\n\n*****\tWrong Id!");
+						System.out.println("\n\n*****\tThe person list is empty!");
 					}
 					break;
 
 				case DELETE_CONTACT :
-					PersonListView.listLastName();
-					System.out.print("\n\nEnter the id of the Contact Information: ");
-					contactIndex = scanner.nextInt();
-					scanner.nextLine();
-					contactInformation = (ContactInformation) Dao.get(contactIndex, "ContactInformation");
-					if (contactInformation != null) {
-						person = contactInformation.getPerson();
-						Dao.delete(contactInformation);
-						person.setContactInformation(null);
-						System.out.println("\n\n*****\tSuccessfully deleted a contact information!");
+					if (!Dao.isDBEmpty()) {
+						PersonListView.printPersonNameId();
+						contactIndex = Util.validateInputInt(contactIndex, "\n\nEnter the id of the Contact Information: ");
+						person = (Person)Dao.get(contactIndex, "Person");
+						if (person != null) {
+							if (person.getContactInformation() == null) {
+								System.out.println("\n\n*****\tThe person has no contact information already!");
+							}
+							else {
+								contactInformation = person.getContactInformation();
+								Dao.delete(contactInformation);	
+								person.setContactInformation(null);
+								PersonListView.printPersonInformation(person, "");
+								System.out.println("\n\n*****\tSuccessfully deleted a contact information!");
+							}
+						}
+						else {
+							System.out.println("\n\n*****\tWrong Id!");
+						}
 					}
 					else {
-						System.out.println("\n\n*****\tWrong Id!");
+						System.out.println("\n\n*****\tThe person list is empty!");
 					}	
 					break;
 

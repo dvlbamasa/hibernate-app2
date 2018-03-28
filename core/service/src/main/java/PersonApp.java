@@ -23,8 +23,10 @@ public class PersonApp {
 		}
 	}
 
-	public void insertInitialInput() {
-		Dao.create(Service.getPersonInput(false, null));
+	public void insertInitialInput() {	
+		Person person = Service.getPersonInput(false, null);
+		Dao.create(person);
+		PersonListView.printPersonInformation(person, "");
 		System.out.println("\n\n*****\tSuccessfully created a new Person!");
 	}
 

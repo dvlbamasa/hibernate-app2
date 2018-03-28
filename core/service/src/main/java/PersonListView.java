@@ -64,34 +64,48 @@ public class PersonListView {
 
 	private static void printOrderedList(List<Person> persons, String order) {
 		if (persons.isEmpty()) {
-			System.out.println("The person list is empty!");
+			System.out.println("\n\n*****\tThe person list is empty!");
 		}
 		else {
 			for(Person person : persons) {
-				System.out.println("\n\n*********\tList of Persons Ordered by " + order + "\t***********" +
-									"\nId: " + person.getId()+
-									"\nName- " + 
-									"\n\tFirst Name: " + person.getName().getFirstName() + 
-									"\n\tMiddle Name: " + person.getName().getMiddleName() + 
-									"\n\tLast Name: " + person.getName().getLastName() +
-									"\nGender: " + person.getGender() +
-									"\nAddress- " + 
-									"\n\tStreet Number: " + person.getAddress().getStreetNo() + 
-									"\n\tBarangay: " + person.getAddress().getBarangay() + 
-									"\n\tMuncipality/City: " + person.getAddress().getMunicipality() +
-									"\nBirthday: " + person.getBirthday() +
-									"\nGWA: " + person.getGwa() +
-									"\nDate Hired: " + person.getDateHired() +
-									"\nCurrently Employed: " + (person.getCurrentlyEmployed() ? "Yes" : "No") +
-									"\nContact Information -" +
-									"\n\tLandline: " + ((person.getContactInformation() == null) ? "" : person.getContactInformation().getLandline()) +
-									"\n\tMobile Number: " + ((person.getContactInformation() == null) ? "" : person.getContactInformation().getMobileNumber()) +
-									"\n\tEmail Address: " + ((person.getContactInformation() == null) ? "" : person.getContactInformation().getEmail()));	
-				List<Role> roles = new ArrayList<Role>(person.getRoles());
-				System.out.print("\nRoles: ");
-				roles.forEach(
-					(role) -> System.out.print(role.getName().trim() + " "));	
+				printPersonInformation(person, order);	
 			}
+		}
+	}
+
+	public static void printPersonInformation(Person person, String order) {
+		System.out.println((order.equals("") ? "\n\n*********\t Updated Person Information \t***********" : ("\n\n*********\tList of Persons Ordered by " + order + "\t***********")) +
+							"\nId: " + person.getId()+
+							"\nName- " + 
+							"\n\tFirst Name: " + person.getName().getFirstName() + 
+							"\n\tMiddle Name: " + person.getName().getMiddleName() + 
+							"\n\tLast Name: " + person.getName().getLastName() +
+							"\nGender: " + person.getGender() +
+							"\nAddress- " + 
+							"\n\tStreet Number: " + person.getAddress().getStreetNo() + 
+							"\n\tBarangay: " + person.getAddress().getBarangay() + 
+							"\n\tMuncipality/City: " + person.getAddress().getMunicipality() +
+							"\nBirthday: " + person.getBirthday() +
+							"\nGWA: " + person.getGwa() +
+							"\nDate Hired: " + person.getDateHired() +
+							"\nCurrently Employed: " + (person.getCurrentlyEmployed() ? "Yes" : "No") +
+							"\nContact Information -" +
+							"\n\tLandline: " + ((person.getContactInformation() == null) ? "" : person.getContactInformation().getLandline()) +
+							"\n\tMobile Number: " + ((person.getContactInformation() == null) ? "" : person.getContactInformation().getMobileNumber()) +
+							"\n\tEmail Address: " + ((person.getContactInformation() == null) ? "" : person.getContactInformation().getEmail()));	
+		List<Role> roles = new ArrayList<Role>(person.getRoles());
+		System.out.print("\nRoles: ");
+		roles.forEach(
+			(role) -> System.out.print(role.getName().trim() + " "));	
+	}
+
+	public static void printPersonNameId() {
+		List<Person> persons = (List<Person>) Dao.getList("Person");
+		System.out.println("\n\n****** List of Persons ******");
+		for (Person person : persons) {
+			System.out.print("\nId: " + person.getId() + " Name: " + person.getName().getFirstName().trim() + " "
+									+ person.getName().getMiddleName().trim() + " "
+									+ person.getName().getLastName().trim() + " ");	
 		}
 	}
 }

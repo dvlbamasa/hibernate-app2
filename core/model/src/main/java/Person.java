@@ -128,7 +128,7 @@ public class Person extends EntityParent{
 		this.roles = roles;
 	}
 
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinTable(name = "person_role", joinColumns = { 
 			@JoinColumn(name = "person_id", nullable = false, updatable = false) }, 
 			inverseJoinColumns = { @JoinColumn(name = "role_id", 

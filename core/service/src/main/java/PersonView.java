@@ -22,45 +22,59 @@ public class PersonView {
 			switch (userInput) {
 
 				case CREATE_PERSON :
-					Dao.create(Service.getPersonInput(false, null));
+					person = Service.getPersonInput(false, null);
+					Dao.create(person);
+					PersonListView.printPersonInformation(person, "");
 					System.out.println("\n\n*****\tSuccessfully created a new Person!");
-					PersonListView.listLastName();
 					break;
 
 				case DELETE_PERSON :
-					PersonListView.listLastName();
-					System.out.print("\n\nEnter the id of the Person: ");
-					personIndex = scanner.nextInt();
-					scanner.nextLine();
-					person = (Person) Dao.get(personIndex, "Person");
-					if (person != null) {
-						Dao.delete(person);
-						System.out.println("\n\n*****\tSuccessfully deleted a Person!");
-						PersonListView.listLastName();
+					if (!Dao.isDBEmpty()) {
+						PersonListView.printPersonNameId();
+						personIndex = Util.validateInputInt(personIndex, "\n\nEnter the id of the Person: ");
+						person = (Person) Dao.get(personIndex, "Person");
+						if (person != null) {
+							Dao.delete(person);
+							if (!Dao.isDBEmpty()) {
+								PersonListView.listLastName();
+							}
+							System.out.println("\n\n*****\tSuccessfully deleted a Person!");
+						}
+						else {
+							System.out.println("\n\n*****\tWrong Index!");
+						}
 					}
 					else {
-						System.out.println("\n\n*****\tWrong Index!");
+						System.out.println("\n\n*****\tThe person list is empty!");
 					}
 					break;
 
 				case UPDATE_PERSON :
-					PersonListView.listLastName();
-					System.out.print("\n\nEnter the id of the Person: ");
-					personIndex = scanner.nextInt();
-					scanner.nextLine();
-					person = (Person) Dao.get(personIndex, "Person");
-					if (person != null) {
-						Dao.update(Service.getPersonInput(true, person));
-						System.out.println("\n\n*****\tSuccessfully updated a Person!");
-						PersonListView.listLastName();
+					if (!Dao.isDBEmpty()) {
+						PersonListView.printPersonNameId();
+						personIndex = Util.validateInputInt(personIndex, "\n\nEnter the id of the Person: ");
+						person = (Person) Dao.get(personIndex, "Person");
+						if (person != null) {
+							Dao.update(Service.getPersonInput(true, person));
+							PersonListView.printPersonInformation(person, "");
+							System.out.println("\n\n*****\tSuccessfully updated a Person!");
+						}
+						else {
+							System.out.println("\n\n*****\tWrong Index!");
+						}
 					}
 					else {
-						System.out.println("\n\n*****\tWrong Index!");
+						System.out.println("\n\n*****\tThe person list is empty!");
 					}
 					break;
 
 				case LIST_OPTIONS :
-					PersonListView.showPersonListView();
+					if (!Dao.isDBEmpty()) {
+						PersonListView.showPersonListView();
+					}
+					else {
+						System.out.println("\n\n*****\tThe person list is empty!");
+					}
 					break;
 
 				case BACK :

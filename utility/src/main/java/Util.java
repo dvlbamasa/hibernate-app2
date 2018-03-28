@@ -14,7 +14,7 @@ public class Util {
 			System.out.print(prompt);
 			property = scanner.nextLine();
 			if (!validateInputLength(property, stringLength)) {
-				System.out.println("***** The maximum length is " + stringLength + " characters!");
+				System.out.println("***** The maximum length is " + stringLength + " characters and must not be null!");
 			}
 		}
 		return property;	

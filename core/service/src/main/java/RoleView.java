@@ -25,6 +25,7 @@ public class RoleView {
 			*/
 			if (userInput == CREATE_ROLE) {
 				Dao.create(Service.getRoleInput(false, null));
+				printRoleInformationList();
 				System.out.println("\n\n*****\tSuccessfully created a new Role!");
 			}
 			/*
@@ -32,14 +33,12 @@ public class RoleView {
 			*/
 			else if (userInput == UPDATE_ROLE) {
 				printRoleList();
-				System.out.print("\n\nEnter the id of the Role: ");
-				roleIndex = scanner.nextInt();
-				scanner.nextLine();
+				roleIndex = Util.validateInputInt(roleIndex, "\n\nEnter the id of the Role: ");
 				Role role = (Role) Dao.get(roleIndex, "Role");
 				if (role != null) {
 					Dao.update(Service.getRoleInput(true, role));
+					printRoleInformationList();
 					System.out.println("\n\n*****\tSuccessfully updated a Role!");
-					printRoleList();
 				}
 				else {
 					System.out.println("\n\n*****\tWrong Id!");
@@ -49,83 +48,68 @@ public class RoleView {
 			*	List all the Roles
 			*/
 			else if (userInput == LIST_ROLE) {
-				printRoleList();
+				printRoleInformationList();
 			}
 			/*
 			*	Add a role to a Person
 			*/
 			else if (userInput == ADD_PERSON_ROLE) {
-				printRoleList();
-				System.out.print("\n\nEnter the id of the Role: ");
-				roleIndex = scanner.nextInt();
-				scanner.nextLine();
-				Role newRole = (Role)Dao.get(roleIndex, "Role");
-				if (newRole != null) {
-					System.out.print("Enter the id of the Person you want to add to this Role: ");
-					int personIndex = scanner.nextInt();
-					scanner.nextLine();				
+				if (!Dao.isDBEmpty()) {
+					int personIndex = 0;
+					PersonListView.printPersonNameId();
+					personIndex = Util.validateInputInt(personIndex, "\n\nEnter the id of the Person: ");
 					Person person = (Person)Dao.get(personIndex, "Person");
 					if (person != null) {
-						Set<Role> roles = person.getRoles();
-						Iterator<Role> iterator = roles.iterator();
-						boolean roleExist = false;
-					    while(iterator.hasNext()) {
-					        Role setRole = iterator.next();
-					        if(setRole.equals(newRole)) {
-					            roleExist = true;
-					        }
-					    }
-						if (roleExist) {
-							System.out.println("\n\n*****\tsThe role already exists on the person!");
-						}
-						else {
-							person.getRoles().add(newRole);
-							Dao.update(person);
-							System.out.println("\n\n*****\tSuccessfully added a role to a person!");
-							printRoleList();
-						}
+						Service.addRolesToPerson(person.getRoles());				
+						Dao.update(person);
+						printRoleInformationList();
+						System.out.println("\n\n*****\tSuccessfully added roles!");
 					}
 					else {
 						System.out.println("\n\n*****\tWrong Id!");
 					}
 				}
 				else {
-					System.out.println("\n\n*****\tWrong Id!");
+					System.out.println("\n\n*****\tThe person list is empty!");
 				}
 			}
 			/*
 			*	Remove a role from a Person
 			*/
 			else if (userInput == DELETE_PERSON_ROLE) {
-				printRoleList();
-				System.out.print("\n\nEnter the id of the Role: ");
-				roleIndex = scanner.nextInt();
-				scanner.nextLine();
-				Role newRole = (Role)Dao.get(roleIndex, "Role");
-				if (newRole != null) {
-					System.out.print("Enter the id of the Person you want to remove from this Role: ");
-					int personIndex = scanner.nextInt();
-					scanner.nextLine();
-					Person person = (Person)Dao.get(personIndex, "Person");
-					if (person != null) {
-						Set<Role> roles = person.getRoles();
-						Iterator<Role> iterator = roles.iterator();
-					    while(iterator.hasNext()) {
-					        Role setRole = iterator.next();
-					        if(setRole.equals(newRole)) {
-					            iterator.remove();
-					        }
-					    }
-						Dao.update(person);
-						System.out.println("\n\n*****\tSuccessfully removed a role from a person!");
-						printRoleList();
+				if (!Dao.isDBEmpty()) {
+					printRoleList();
+					roleIndex = Util.validateInputInt(roleIndex, "\n\nEnter the id of the Role: ");
+					Role newRole = (Role)Dao.get(roleIndex, "Role");
+					if (newRole != null) {
+						if (!printPersonsOnRole(newRole)) {
+							int personIndex = 0;
+							personIndex = Util.validateInputInt(personIndex, "\n\nEnter the id of the Person you want to remove from this Role: ");
+							Person person = (Person)Dao.get(personIndex, "Person");
+							if (person != null) {
+								Set<Role> roles = person.getRoles();
+								Iterator<Role> iterator = roles.iterator();
+							    while (iterator.hasNext()) {
+							        Role setRole = iterator.next();
+							        if (setRole.equals(newRole)) {
+							            iterator.remove();
+							        }
+							    }
+								Dao.update(person);
+								printRoleInformationList();
+								System.out.println("\n\n*****\tSuccessfully removed a role from a person!");
+							}
+							else {
+								System.out.println("\n\n*****\tWrong Id!");
+							}	
+						}
 					}
 					else {
 						System.out.println("\n\n*****\tWrong Id!");
 					}
 				}
 				else {
-					System.out.println("\n\n*****\tWrong Id!");
+					System.out.println("\n\n*****\tThe person list is empty!");
 				}
 			}
 			/*
@@ -143,14 +127,14 @@ public class RoleView {
 		}
 	}
 
-	public static void printRoleList() {
+	public static void printRoleInformationList() {
 		List<Role> roles = (List<Role>) Dao.getList("Role");
-		System.out.println("\n\n******** List of Roles \t*********\n\n");
+		System.out.println("\n\n******** List of Roles with information \t*********\n");
 		if (roles.isEmpty()) {
 			System.out.println("\n\n*****\tThere are no roles.");
 		}
 		else {
-			for(Role role : roles) {
+			for (Role role : roles) {
 				List<Person> persons = new ArrayList<Person>(role.getPersons());
 				System.out.println("\nRole Id: " + role.getId() + " Role Name: " + role.getName());
 				System.out.println("\tPersons having this role: ");
@@ -164,6 +148,38 @@ public class RoleView {
 														person.getName().getMiddleName().trim() + " " + 
 														person.getName().getLastName().trim()));
 				}
+			}
+		}
+	}
+
+	public static boolean printPersonsOnRole(Role role) {
+		boolean isEmpty = false;
+		List<Person> persons = new ArrayList<Person>(role.getPersons());
+		System.out.println("\n\nPersons having this role: ");
+		if (persons.isEmpty()) {
+			isEmpty = true;
+			System.out.println("\n\n*****\tThere are no persons on this role!");
+		}
+		else {
+			isEmpty = false;
+			persons.forEach(
+				(person) -> System.out.println("\tPerson Id: " + person.getId()+
+												" Person Name: " + person.getName().getFirstName().trim() + " " +
+												person.getName().getMiddleName().trim() + " " + 
+												person.getName().getLastName().trim()));
+		}
+		return isEmpty;
+	}
+
+	public static void printRoleList () {
+		List<Role> roles = (List<Role>) Dao.getList("Role");
+		System.out.println("\n\n******** List of Roles \t*********\n");
+		if (roles.isEmpty()) {
+			System.out.println("\n\n*****\tThere are no roles.");
+		}
+		else {
+			for(Role role : roles) {
+				System.out.print("\nRole Id: " + role.getId() + " Role Name: " + role.getName());
 			}
 		}
 	}

@@ -1,0 +1,86 @@
+2018-03-28 14:52:55 INFO  org.hibernate.Version     - HHH000412: Hibernate Core {[WORKING]}
+2018-03-28 14:52:55 INFO  org.hibernate.cfg.Environment     - HHH000206: hibernate.properties not found
+2018-03-28 14:52:56 INFO  org.hibernate.annotations.common.Version     - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2018-03-28 14:52:56 WARN  org.hibernate.orm.connections.pooling     - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2018-03-28 14:52:56 INFO  org.hibernate.orm.connections.pooling     - HHH10001005: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://localhost:5432/persondb]
+2018-03-28 14:52:56 INFO  org.hibernate.orm.connections.pooling     - HHH10001001: Connection properties: {user=postgres, password=****}
+2018-03-28 14:52:56 INFO  org.hibernate.orm.connections.pooling     - HHH10001003: Autocommit mode: false
+2018-03-28 14:52:56 INFO  org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl     - HHH000115: Hibernate connection pool size: 20 (min=1)
+2018-03-28 14:52:56 INFO  org.hibernate.dialect.Dialect     - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL82Dialect
+2018-03-28 14:52:56 INFO  org.hibernate.engine.jdbc.env.internal.LobCreatorBuilderImpl     - HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException
+2018-03-28 14:52:56 INFO  org.hibernate.type.BasicTypeRegistry     - HHH000270: Type registration [java.util.UUID] overrides previous : org.hibernate.type.UUIDBinaryType@581ac8a8
+2018-03-28 14:52:57 WARN  net.sf.ehcache.config.ConfigurationFactory     - No configuration found. Configuring ehcache from ehcache-failsafe.xml  found in the classpath: jar:file:/home/dvamasa/Documents/git-projects/hibernate-app2/app/target/app-1.0-SNAPSHOT-jar-with-dependencies.jar!/ehcache-failsafe.xml
+2018-03-28 14:52:57 INFO  org.hibernate.orm.connections.access     - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@2ca65ce4] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2018-03-28 14:52:57 WARN  org.hibernate.orm.deprecation     - HHH90000022: Hibernate's legacy org.hibernate.Criteria API is deprecated; use the JPA javax.persistence.criteria.CriteriaQuery instead
+2018-03-28 14:55:35 INFO  org.hibernate.Version     - HHH000412: Hibernate Core {[WORKING]}
+2018-03-28 14:55:35 INFO  org.hibernate.cfg.Environment     - HHH000206: hibernate.properties not found
+2018-03-28 14:55:35 INFO  org.hibernate.annotations.common.Version     - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2018-03-28 14:55:35 WARN  org.hibernate.orm.connections.pooling     - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2018-03-28 14:55:35 INFO  org.hibernate.orm.connections.pooling     - HHH10001005: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://localhost:5432/persondb]
+2018-03-28 14:55:35 INFO  org.hibernate.orm.connections.pooling     - HHH10001001: Connection properties: {user=postgres, password=****}
+2018-03-28 14:55:35 INFO  org.hibernate.orm.connections.pooling     - HHH10001003: Autocommit mode: false
+2018-03-28 14:55:35 INFO  org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl     - HHH000115: Hibernate connection pool size: 20 (min=1)
+2018-03-28 14:55:36 INFO  org.hibernate.dialect.Dialect     - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL82Dialect
+2018-03-28 14:55:36 INFO  org.hibernate.engine.jdbc.env.internal.LobCreatorBuilderImpl     - HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException
+2018-03-28 14:55:36 INFO  org.hibernate.type.BasicTypeRegistry     - HHH000270: Type registration [java.util.UUID] overrides previous : org.hibernate.type.UUIDBinaryType@581ac8a8
+2018-03-28 14:55:36 WARN  net.sf.ehcache.config.ConfigurationFactory     - No configuration found. Configuring ehcache from ehcache-failsafe.xml  found in the classpath: jar:file:/home/dvamasa/Documents/git-projects/hibernate-app2/app/target/app-1.0-SNAPSHOT-jar-with-dependencies.jar!/ehcache-failsafe.xml
+2018-03-28 14:55:37 INFO  org.hibernate.orm.connections.access     - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@2ca65ce4] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2018-03-28 14:55:37 WARN  org.hibernate.orm.deprecation     - HHH90000022: Hibernate's legacy org.hibernate.Criteria API is deprecated; use the JPA javax.persistence.criteria.CriteriaQuery instead
+2018-03-28 14:55:53 WARN  org.hibernate.orm.deprecation     - HHH90000022: Hibernate's legacy org.hibernate.Criteria API is deprecated; use the JPA javax.persistence.criteria.CriteriaQuery instead
+2018-03-28 14:55:53 WARN  org.hibernate.orm.deprecation     - HHH90000022: Hibernate's legacy org.hibernate.Criteria API is deprecated; use the JPA javax.persistence.criteria.CriteriaQuery instead
+2018-03-28 14:55:59 WARN  org.hibernate.orm.deprecation     - HHH90000022: Hibernate's legacy org.hibernate.Criteria API is deprecated; use the JPA javax.persistence.criteria.CriteriaQuery instead
+2018-03-28 14:56:13 WARN  org.hibernate.orm.deprecation     - HHH90000022: Hibernate's legacy org.hibernate.Criteria API is deprecated; use the JPA javax.persistence.criteria.CriteriaQuery instead
+2018-03-28 14:56:13 WARN  org.hibernate.orm.deprecation     - HHH90000022: Hibernate's legacy org.hibernate.Criteria API is deprecated; use the JPA javax.persistence.criteria.CriteriaQuery instead
+2018-03-28 15:38:22 INFO  org.hibernate.Version     - HHH000412: Hibernate Core {[WORKING]}
+2018-03-28 15:38:22 INFO  org.hibernate.cfg.Environment     - HHH000206: hibernate.properties not found
+2018-03-28 15:38:22 INFO  org.hibernate.annotations.common.Version     - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2018-03-28 15:38:22 WARN  org.hibernate.orm.connections.pooling     - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2018-03-28 15:38:22 INFO  org.hibernate.orm.connections.pooling     - HHH10001005: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://localhost:5432/persondb]
+2018-03-28 15:38:22 INFO  org.hibernate.orm.connections.pooling     - HHH10001001: Connection properties: {user=postgres, password=****}
+2018-03-28 15:38:22 INFO  org.hibernate.orm.connections.pooling     - HHH10001003: Autocommit mode: false
+2018-03-28 15:38:22 INFO  org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl     - HHH000115: Hibernate connection pool size: 20 (min=1)
+2018-03-28 15:38:23 INFO  org.hibernate.dialect.Dialect     - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL82Dialect
+2018-03-28 15:38:23 INFO  org.hibernate.engine.jdbc.env.internal.LobCreatorBuilderImpl     - HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException
+2018-03-28 15:38:23 INFO  org.hibernate.type.BasicTypeRegistry     - HHH000270: Type registration [java.util.UUID] overrides previous : org.hibernate.type.UUIDBinaryType@57d7f8ca
+2018-03-28 15:38:23 WARN  net.sf.ehcache.config.ConfigurationFactory     - No configuration found. Configuring ehcache from ehcache-failsafe.xml  found in the classpath: jar:file:/home/dvamasa/Documents/git-projects/hibernate-app2/app/target/app-1.0-SNAPSHOT-jar-with-dependencies.jar!/ehcache-failsafe.xml
+2018-03-28 15:38:24 INFO  org.hibernate.orm.connections.access     - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@5707c1cb] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2018-03-28 15:38:24 WARN  org.hibernate.orm.deprecation     - HHH90000022: Hibernate's legacy org.hibernate.Criteria API is deprecated; use the JPA javax.persistence.criteria.CriteriaQuery instead
+2018-03-28 15:38:30 WARN  org.hibernate.orm.deprecation     - HHH90000022: Hibernate's legacy org.hibernate.Criteria API is deprecated; use the JPA javax.persistence.criteria.CriteriaQuery instead
+2018-03-28 15:39:15 INFO  org.hibernate.Version     - HHH000412: Hibernate Core {[WORKING]}
+2018-03-28 15:39:15 INFO  org.hibernate.cfg.Environment     - HHH000206: hibernate.properties not found
+2018-03-28 15:39:16 INFO  org.hibernate.annotations.common.Version     - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2018-03-28 15:39:16 WARN  org.hibernate.orm.connections.pooling     - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2018-03-28 15:39:16 INFO  org.hibernate.orm.connections.pooling     - HHH10001005: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://localhost:5432/persondb]
+2018-03-28 15:39:16 INFO  org.hibernate.orm.connections.pooling     - HHH10001001: Connection properties: {user=postgres, password=****}
+2018-03-28 15:39:16 INFO  org.hibernate.orm.connections.pooling     - HHH10001003: Autocommit mode: false
+2018-03-28 15:39:16 INFO  org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl     - HHH000115: Hibernate connection pool size: 20 (min=1)
+2018-03-28 15:39:16 INFO  org.hibernate.dialect.Dialect     - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL82Dialect
+2018-03-28 15:39:16 INFO  org.hibernate.engine.jdbc.env.internal.LobCreatorBuilderImpl     - HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException
+2018-03-28 15:39:16 INFO  org.hibernate.type.BasicTypeRegistry     - HHH000270: Type registration [java.util.UUID] overrides previous : org.hibernate.type.UUIDBinaryType@581ac8a8
+2018-03-28 15:39:17 WARN  net.sf.ehcache.config.ConfigurationFactory     - No configuration found. Configuring ehcache from ehcache-failsafe.xml  found in the classpath: jar:file:/home/dvamasa/Documents/git-projects/hibernate-app2/app/target/app-1.0-SNAPSHOT-jar-with-dependencies.jar!/ehcache-failsafe.xml
+2018-03-28 15:39:17 INFO  org.hibernate.orm.connections.access     - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@2ca65ce4] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2018-03-28 15:39:17 WARN  org.hibernate.orm.deprecation     - HHH90000022: Hibernate's legacy org.hibernate.Criteria API is deprecated; use the JPA javax.persistence.criteria.CriteriaQuery instead
+2018-03-28 15:39:28 WARN  org.hibernate.orm.deprecation     - HHH90000022: Hibernate's legacy org.hibernate.Criteria API is deprecated; use the JPA javax.persistence.criteria.CriteriaQuery instead
+2018-03-28 15:39:28 WARN  org.hibernate.orm.deprecation     - HHH90000022: Hibernate's legacy org.hibernate.Criteria API is deprecated; use the JPA javax.persistence.criteria.CriteriaQuery instead
+2018-03-28 15:39:38 WARN  org.hibernate.orm.deprecation     - HHH90000022: Hibernate's legacy org.hibernate.Criteria API is deprecated; use the JPA javax.persistence.criteria.CriteriaQuery instead
+2018-03-28 15:39:42 WARN  org.hibernate.orm.deprecation     - HHH90000022: Hibernate's legacy org.hibernate.Criteria API is deprecated; use the JPA javax.persistence.criteria.CriteriaQuery instead
+2018-03-28 15:39:42 WARN  org.hibernate.orm.deprecation     - HHH90000022: Hibernate's legacy org.hibernate.Criteria API is deprecated; use the JPA javax.persistence.criteria.CriteriaQuery instead
+2018-03-28 15:39:44 WARN  org.hibernate.orm.deprecation     - HHH90000022: Hibernate's legacy org.hibernate.Criteria API is deprecated; use the JPA javax.persistence.criteria.CriteriaQuery instead
+2018-03-28 15:43:44 INFO  org.hibernate.Version     - HHH000412: Hibernate Core {[WORKING]}
+2018-03-28 15:43:44 INFO  org.hibernate.cfg.Environment     - HHH000206: hibernate.properties not found
+2018-03-28 15:43:45 INFO  org.hibernate.annotations.common.Version     - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2018-03-28 15:43:45 WARN  org.hibernate.orm.connections.pooling     - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2018-03-28 15:43:45 INFO  org.hibernate.orm.connections.pooling     - HHH10001005: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://localhost:5432/persondb]
+2018-03-28 15:43:45 INFO  org.hibernate.orm.connections.pooling     - HHH10001001: Connection properties: {user=postgres, password=****}
+2018-03-28 15:43:45 INFO  org.hibernate.orm.connections.pooling     - HHH10001003: Autocommit mode: false
+2018-03-28 15:43:45 INFO  org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl     - HHH000115: Hibernate connection pool size: 20 (min=1)
+2018-03-28 15:43:45 INFO  org.hibernate.dialect.Dialect     - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL82Dialect
+2018-03-28 15:43:45 INFO  org.hibernate.engine.jdbc.env.internal.LobCreatorBuilderImpl     - HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException
+2018-03-28 15:43:45 INFO  org.hibernate.type.BasicTypeRegistry     - HHH000270: Type registration [java.util.UUID] overrides previous : org.hibernate.type.UUIDBinaryType@581ac8a8
+2018-03-28 15:43:46 WARN  net.sf.ehcache.config.ConfigurationFactory     - No configuration found. Configuring ehcache from ehcache-failsafe.xml  found in the classpath: jar:file:/home/dvamasa/Documents/git-projects/hibernate-app2/app/target/app-1.0-SNAPSHOT-jar-with-dependencies.jar!/ehcache-failsafe.xml
+2018-03-28 15:43:46 INFO  org.hibernate.orm.connections.access     - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@2ca65ce4] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2018-03-28 15:43:47 WARN  org.hibernate.orm.deprecation     - HHH90000022: Hibernate's legacy org.hibernate.Criteria API is deprecated; use the JPA javax.persistence.criteria.CriteriaQuery instead
+2018-03-28 15:43:53 WARN  org.hibernate.orm.deprecation     - HHH90000022: Hibernate's legacy org.hibernate.Criteria API is deprecated; use the JPA javax.persistence.criteria.CriteriaQuery instead
+2018-03-28 15:43:53 WARN  org.hibernate.orm.deprecation     - HHH90000022: Hibernate's legacy org.hibernate.Criteria API is deprecated; use the JPA javax.persistence.criteria.CriteriaQuery instead
+2018-03-28 15:43:55 WARN  org.hibernate.orm.deprecation     - HHH90000022: Hibernate's legacy org.hibernate.Criteria API is deprecated; use the JPA javax.persistence.criteria.CriteriaQuery instead
+2018-03-28 15:43:55 WARN  org.hibernate.orm.deprecation     - HHH90000022: Hibernate's legacy org.hibernate.Criteria API is deprecated; use the JPA javax.persistence.criteria.CriteriaQuery instead

@@ -2,6 +2,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session; 
 import org.hibernate.Transaction;
 import org.hibernate.Criteria;
+import static org.hibernate.Criteria.DISTINCT_ROOT_ENTITY;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.SessionFactory;
@@ -9,6 +10,7 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.Query;
 import java.util.List;
 import java.io.Serializable;
+import java.util.stream.Collectors;
 
 public class Dao {
 	
@@ -35,7 +37,9 @@ public class Dao {
   		Session session = HibernateSession.getSession();
   		Object resultObject = null;
   		try {
-  			Criteria criteria = session.createCriteria(object).add(Restrictions.eq("id", id));
+  			Criteria criteria = session.createCriteria(object);
+  			criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+  			criteria.add(Restrictions.eq("id", id));
 			List results = criteria.list();
 			if (results.size() == 1) {
 				resultObject = results.get(0);
@@ -55,7 +59,7 @@ public class Dao {
   		Transaction transaction = session.beginTransaction();
 	  	try{
 	  		session.update(object);
-	  		session.getTransaction().commit();
+	  		transaction.commit();
 	  	} catch (HibernateException e) {
         	if (transaction!=null) {
         		transaction.rollback();	
@@ -103,6 +107,7 @@ public class Dao {
   		List results = null;
   		try {
   			Criteria criteria = session.createCriteria(object);
+  			criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 			results = criteria.list();
 		} catch (HibernateException e) {
 			e.printStackTrace(); 
@@ -117,6 +122,7 @@ public class Dao {
   		List results = null;
   		try {
   			Criteria criteria = session.createCriteria(object);
+  			criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
   			criteria.addOrder(Order.asc(order));
 			results = criteria.list();
 		} catch (HibernateException e) {

@@ -66,3 +66,12 @@ ALTER TABLE person_role
        add CONSTRAINT FKhyx1efsls0f00lxs6xd4w2b3j 
        FOREIGN KEY (person_id) 
        REFERENCES person;
+
+
+INSERT INTO role VALUES (1, 'SOFTWARE_DEVELOPER');
+
+INSERT INTO role VALUES (2, 'QA_ENGINEER');
+
+INSERT INTO role VALUES (3, 'BUSINESS_ANALYST');
+
+INSERT INTO role VALUES (4, 'HR_OFFICER');

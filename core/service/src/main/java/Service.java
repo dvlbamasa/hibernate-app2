@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
 import java.util.Locale;
+import java.util.Iterator;
 
 public class Service {
 	
@@ -29,7 +30,6 @@ public class Service {
 		String email = "";
 		String roleName = "";
 		Set<Role> roles = new HashSet<Role>();
-		Set<Person> persons = new HashSet<Person>();
 		Person person = null;
 		try {
 
@@ -84,6 +84,7 @@ public class Service {
 					scanner.nextLine();
 				}
 			}
+
 			streetNo = Util.validateInputInt(streetNo, "The following entries are for the address info.\nEnter the street number: ");
 			barangay = Util.validateInputString(barangay, 20, "Enter the barangay name: ");	
 			municipality = Util.validateInputString(municipality, 20, "Enter the municipality name: ");
@@ -91,29 +92,9 @@ public class Service {
 			landline = Util.validateInputString(landline, 20, "The following entries are for the contact information.\nEnter the landline: ");
 			mobileNumber = Util.validateInputString(mobileNumber, 20, "Enter the mobile number: ");
 			email = Util.validateInputString(email, 30, "Enter the email: ");
-			//roleName = Util.validateInputString(roleName, 20, "Enter the role name: ");
-			
 
 			Address personAddress = new Address(streetNo, barangay, municipality, zipCode);
-			
-			ContactInformation personContactInformation = new ContactInformation(landline, mobileNumber, email);
-
-			//Role role = new Role(roleName);
-
 			Dao.create(personAddress);
-
-			person = new Person(personName, (gender == 1 ? Person.Gender.MALE : Person.Gender.FEMALE), personAddress, java.sql.Date.valueOf(LocalDate.parse(birthday, formatter)), gwa, 
-								java.sql.Date.valueOf(LocalDate.parse(dateHired, formatter)), (currentlyEmployed == 1 ? true : false));
-			
-			personContactInformation.setPerson(person);
-			person.setContactInformation(personContactInformation);
-
-			roles = addRolesToPerson(roles, person);
-			//roles.add(new Role(roleName));
-			//persons.add(person);
-
-			//role.setPersons(persons);
-			person.setRoles(roles);
 
 			if (update) {
 				personToUpdate.setName(personName);
@@ -123,8 +104,27 @@ public class Service {
 				personToUpdate.setGwa(gwa);
 				personToUpdate.setDateHired(java.sql.Date.valueOf(LocalDate.parse(dateHired, formatter)));
 				personToUpdate.setCurrentlyEmployed((currentlyEmployed == 1 ? true : false));
+				if (personToUpdate.getContactInformation() != null) {
+					personToUpdate.getContactInformation().setLandline(landline);
+					personToUpdate.getContactInformation().setMobileNumber(mobileNumber);
+					personToUpdate.getContactInformation().setEmail(email);
+				}
+				else {
+					ContactInformation personContactInformation = new ContactInformation(landline, mobileNumber, email);
+					personToUpdate.setContactInformation(personContactInformation);
+					personContactInformation.setPerson(personToUpdate);
+				}
+				personToUpdate.setRoles(roles);
+				addRolesToPerson(personToUpdate.getRoles());
+			}
+			else {
+				ContactInformation personContactInformation = new ContactInformation(landline, mobileNumber, email);
+				person = new Person(personName, (gender == 1 ? Person.Gender.MALE : Person.Gender.FEMALE), personAddress, java.sql.Date.valueOf(LocalDate.parse(birthday, formatter)), gwa, 
+								java.sql.Date.valueOf(LocalDate.parse(dateHired, formatter)), (currentlyEmployed == 1 ? true : false));
+				personContactInformation.setPerson(person);
 				person.setContactInformation(personContactInformation);
 				person.setRoles(roles);
+				addRolesToPerson(person.getRoles());
 			}
 
 		} catch (java.util.InputMismatchException e) {
@@ -134,34 +134,45 @@ public class Service {
 		return update ? personToUpdate : person;
 	}
 
-	public static Set<Role> addRolesToPerson(Set<Role> roles, Person person) {
+	public static void addRolesToPerson(Set<Role> roles) {
 		int roleInput = -1;
 		Role role;
 		while (roleInput != 0) {
 			try {
 				RoleView.printRoleList();
-				System.out.print("\n\nEnter the role id you want to add to a person (press 0 if you are done): ");
+				System.out.print("\n\nEnter the role id you want to add (press 0 if you are done): ");
 				roleInput = scanner.nextInt();
+				scanner.nextLine();
 				role = (Role) Dao.get(roleInput, "Role");
-				if(role != null) {
-					roles.add(role);
-					role.getPersons().add(person);
+				if (role != null) {
+					Iterator<Role> iterator = roles.iterator();
+					boolean roleExist = false;
+				    while (iterator.hasNext()) {
+				        Role setRole = iterator.next();
+				        if(setRole.equals(role)) {
+				            roleExist = true;
+				        }
+				    }
+					if (roleExist) {
+						System.out.println("\n\n*****\tThe role has already been added on this person!");
+					}
+					else {
+						roles.add(role);
+						System.out.println("\n\n*****\tSuccessfully added role " + role.getName() + " on this person!");
+					}
 				}
-				else {
+				else if (roleInput != 0){
 					System.out.println("\n\n*****\tWrong Id!");
 				}
 			} catch (java.util.InputMismatchException e) {
 				e.printStackTrace();
 			}
 		}
-		return roles;
-		
 	}
 
 	public static Role getRoleInput(boolean update, Role roleToUpdate) {
-		String roleName;
-		System.out.print("Enter the new name of the role: ");
-		roleName = scanner.nextLine();
+		String roleName = "";
+		roleName = Util.validateInputString(roleName, 20, "\n\nEnter the new role name: ");
 		if (update) {
 			roleToUpdate.setName(roleName);
 		}
@@ -171,30 +182,27 @@ public class Service {
 	public static <T> ContactInformation getContactInput(boolean update, final T object) {
 		ContactInformation contactInformation = null;
 		Person person = null;
-		String landline;
-		String mobileNumber;
-		String email;
-		int index;
+		String landline = "";
+		String mobileNumber = "";
+		String email = "";
 
-		System.out.print("\nThe following entries are for the contact information.\nEnter the new landline: ");
-		landline = scanner.nextLine();
-		System.out.print("Enter the new mobile number: ");
-		mobileNumber = scanner.nextLine();
-		System.out.print("Enter the new email: ");
-		email = scanner.nextLine();
+		landline = Util.validateInputString(landline, 20, "\n\nThe following entries are for the contact information.\nEnter the new landline: ");
+		mobileNumber = Util.validateInputString(mobileNumber, 20, "Enter the new mobile number: ");
+		email = Util.validateInputString(email, 30, "Enter the new email: ");
 
-		if (!update) {
+		if (update) {
+			contactInformation = (ContactInformation) object;
+			contactInformation.setLandline(landline);
+			contactInformation.setMobileNumber(mobileNumber);
+			contactInformation.setEmail(email);
+			
+		}
+		else {
 			contactInformation = new ContactInformation(landline, mobileNumber, email);
 			person = (Person) object;
 			person.setContactInformation(contactInformation);
 			contactInformation.setPerson(person);
-			Dao.update(person);
-		}
-		else {
-			contactInformation = (ContactInformation) object;
-			contactInformation.setLandline(landline);
-			contactInformation.setMobileNumber(mobileNumber);
-			contactInformation.setEmail(email);	
+			Dao.update(person);	
 		}
 
 		return contactInformation;
