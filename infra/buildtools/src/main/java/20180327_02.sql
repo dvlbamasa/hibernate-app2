@@ -40,14 +40,14 @@ CREATE TABLE role (
 );
 
 CREATE TABLE person_role (
-	id BIGINT NOT NULL,
+	person_id BIGINT NOT NULL,
 	role_id BIGINT NOT NULL,
 	PRIMARY KEY (person_id, role_id)
 );
 
 ALTER TABLE contact_information 
        add CONSTRAINT FKauxbhl67hx6ftcqayqtu8xmes 
-       FOREIGN KEY (contact_id) 
+       FOREIGN KEY (id) 
        REFERENCES person;
     
 ALTER TABLE person 
