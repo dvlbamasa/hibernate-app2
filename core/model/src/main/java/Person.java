@@ -2,12 +2,9 @@ import java.util.Date;
 import java.util.Set;
 import javax.persistence.*;
 import org.hibernate.annotations.Type;
-import static javax.persistence.GenerationType.IDENTITY;
-
 
 @Entity
 @Table(name = "person")
-@AttributeOverride(name = "id", column = @Column(name = "person_id"))
 public class Person extends EntityParent{
 	
 	private long id;
@@ -20,9 +17,6 @@ public class Person extends EntityParent{
 	private boolean currentlyEmployed;
 	private ContactInformation contactInformation;
 	private Set<Role> roles;
-	public static enum Gender {
-    	MALE, FEMALE
-	}
 
 	public Person() {}
 
@@ -35,17 +29,6 @@ public class Person extends EntityParent{
 		this.gwa = gwa;
 		this.dateHired = dateHired;
 		this.currentlyEmployed = currentlyEmployed;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	@Id @GeneratedValue
-	@Column(name = "person_id", unique = true, nullable = false)
-	@Override
-	public long getId() {
-		return id;
 	}
 
 	public void setName(Name name) {

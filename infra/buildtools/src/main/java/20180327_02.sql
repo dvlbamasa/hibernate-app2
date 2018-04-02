@@ -6,7 +6,7 @@ DROP TABLE person_role CASCADE;
 
 
 CREATE TABLE address (
-	address_id BIGINT PRIMARY KEY NOT NULL,
+	id BIGINT PRIMARY KEY NOT NULL,
 	street_no INT NOT NULL,
 	barangay VARCHAR(20) NOT NULL,
 	municipality VARCHAR(20) NOT NULL,
@@ -14,14 +14,14 @@ CREATE TABLE address (
 );
 
 CREATE TABLE contact_information (
-	contact_id BIGINT PRIMARY KEY NOT NULL,
+	id BIGINT PRIMARY KEY NOT NULL,
 	landline VARCHAR(20) NOT NULL,
 	mobile_number VARCHAR(20) NOT NULL,
 	email VARCHAR(30) NOT NULL
 );
 
 CREATE TABLE person (
-	person_id BIGINT PRIMARY KEY NOT NULL,
+	id BIGINT PRIMARY KEY NOT NULL,
 	first_name VARCHAR(20) NOT NULL,
 	middle_name VARCHAR(20) NOT NULL,
 	last_name VARCHAR(20) NOT NULL,
@@ -35,12 +35,12 @@ CREATE TABLE person (
 
 
 CREATE TABLE role (
-	role_id BIGINT PRIMARY KEY NOT NULL,
+	id BIGINT PRIMARY KEY NOT NULL,
 	name VARCHAR(20) NOT NULL
 );
 
 CREATE TABLE person_role (
-	person_id BIGINT NOT NULL,
+	id BIGINT NOT NULL,
 	role_id BIGINT NOT NULL,
 	PRIMARY KEY (person_id, role_id)
 );
@@ -66,7 +66,6 @@ ALTER TABLE person_role
        add CONSTRAINT FKhyx1efsls0f00lxs6xd4w2b3j 
        FOREIGN KEY (person_id) 
        REFERENCES person;
-
 
 INSERT INTO role VALUES (1, 'SOFTWARE_DEVELOPER');
 

@@ -9,6 +9,6 @@
   </parent>
   <artifactId>buildtools</artifactId>
   <name>buildtools</name>
-  <packaging>pom</packaging>
+  <packaging>jar</packaging>
   <url>http://maven.apache.org</url>
  </project>

@@ -38,6 +38,8 @@
           <db.second_level_cache>true</db.second_level_cache>
           <db.cache.region_factory>org.hibernate.cache.ehcache.EhCacheRegionFactory</db.cache.region_factory>
           <db.hbm2ddl>update</db.hbm2ddl>
+          <db.show_sql>false</db.show_sql>
+          <db.format_sql>false</db.format_sql>
       </properties>
     </profile>
   </profiles>

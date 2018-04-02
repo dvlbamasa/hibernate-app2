@@ -1,11 +1,9 @@
 import java.util.Set;
 import javax.persistence.*;
-import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Table(name = "role")
 @Cacheable
-@AttributeOverride(name = "id", column = @Column(name = "role_id"))
 public class Role extends EntityParent{
 
 	private long id;
@@ -16,18 +14,6 @@ public class Role extends EntityParent{
 	
 	public Role(String name) {
 		this.name = name;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	@Id
-	@GeneratedValue
-	@Column(name = "role_id", unique = true, nullable = false)
-	@Override
-	public long getId() {
-		return id;
 	}
 
 	public void setName(String name) {

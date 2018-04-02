@@ -98,7 +98,7 @@ public class Service {
 
 			if (update) {
 				personToUpdate.setName(personName);
-				personToUpdate.setGender((gender == 1 ? Person.Gender.MALE : Person.Gender.FEMALE));
+				personToUpdate.setGender((gender == 1 ? Gender.MALE : Gender.FEMALE));
 				personToUpdate.setAddress(personAddress);
 				personToUpdate.setBirthday(java.sql.Date.valueOf(LocalDate.parse(birthday, formatter)));
 				personToUpdate.setGwa(gwa);
@@ -119,7 +119,7 @@ public class Service {
 			}
 			else {
 				ContactInformation personContactInformation = new ContactInformation(landline, mobileNumber, email);
-				person = new Person(personName, (gender == 1 ? Person.Gender.MALE : Person.Gender.FEMALE), personAddress, java.sql.Date.valueOf(LocalDate.parse(birthday, formatter)), gwa, 
+				person = new Person(personName, (gender == 1 ? Gender.MALE : Gender.FEMALE), personAddress, java.sql.Date.valueOf(LocalDate.parse(birthday, formatter)), gwa, 
 								java.sql.Date.valueOf(LocalDate.parse(dateHired, formatter)), (currentlyEmployed == 1 ? true : false));
 				personContactInformation.setPerson(person);
 				person.setContactInformation(personContactInformation);
@@ -161,7 +161,7 @@ public class Service {
 						System.out.println("\n\n*****\tSuccessfully added role " + role.getName() + " on this person!");
 					}
 				}
-				else if (roleInput != 0){
+				else if (roleInput != 0) {
 					System.out.println("\n\n*****\tWrong Id!");
 				}
 			} catch (java.util.InputMismatchException e) {

@@ -1,13 +1,10 @@
 import java.util.Set;
 import javax.persistence.*;
-import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Table(name = "address")
-@AttributeOverride(name = "id", column = @Column(name = "address_id"))
 public class Address extends EntityParent{
 
-	private long id;
 	private int streetNo;
 	private String barangay;
 	private String municipality;
@@ -20,18 +17,6 @@ public class Address extends EntityParent{
 		this.barangay = barangay;
 		this.municipality = municipality;
 		this.zipCode = zipCode;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	@Id
-	@GeneratedValue
-	@Column(name = "address_id", nullable = false, unique = true)
-	@Override
-	public long getId() {
-		return id;
 	}
 
 	public void setStreetNo(int streetNo) {
